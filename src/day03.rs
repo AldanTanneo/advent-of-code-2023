@@ -20,7 +20,7 @@ pub fn part1(input: &str) -> Output {
     for i in 0..grid.len() {
         for j in 0..grid[i].len() {
             if grid[i][j].is_ascii_digit() {
-                current = current * 10 + (grid[i][j] - b'0') as u32;
+                current = current * 10 + (grid[i][j] & 0xf) as u32;
                 if len == 0 && j != 0 {
                     adjacent = is_symbol(grid[i][j - 1]);
                     if i != 0 {

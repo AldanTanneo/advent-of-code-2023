@@ -1,3 +1,4 @@
+use crate::utils::parse_num;
 use crate::Output;
 
 #[derive(Debug, Clone)]
@@ -51,10 +52,7 @@ impl Mapping {
 fn parse_mappings(data: &str) -> (Vec<u64>, Vec<Mapping>) {
     let data = data.trim_start_matches("seeds: ");
     let (seeds, mut rest) = data.split_once('\n').unwrap();
-    let seeds = seeds
-        .split_ascii_whitespace()
-        .map(|s| s.parse::<u64>().unwrap())
-        .collect();
+    let seeds = seeds.split_ascii_whitespace().map(parse_num).collect();
 
     let mut mappings = vec![];
     while rest.len() != 0 {
@@ -64,9 +62,7 @@ fn parse_mappings(data: &str) -> (Vec<u64>, Vec<Mapping>) {
         mappings.push(Mapping(
             map.lines()
                 .map(|l| {
-                    let mut it = l
-                        .split_ascii_whitespace()
-                        .map(|x| x.parse::<u64>().unwrap());
+                    let mut it = l.split_ascii_whitespace().map(parse_num);
                     Transposition {
                         to: it.next().unwrap(),
                         from: it.next().unwrap(),

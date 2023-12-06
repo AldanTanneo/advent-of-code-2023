@@ -1,5 +1,6 @@
 use std::collections::VecDeque;
 
+use crate::utils::parse_num;
 use crate::Output;
 
 pub fn part1(input: &str) -> Output {
@@ -12,12 +13,12 @@ pub fn part1(input: &str) -> Output {
             let mut set = [false; 256];
             winning
                 .split_ascii_whitespace()
-                .filter_map(|x| x.parse::<u8>().ok())
+                .map(parse_num)
                 .for_each(|x| set[x as usize] = true);
 
             let winnings = have
                 .split_ascii_whitespace()
-                .filter_map(|x| x.parse::<u8>().ok())
+                .map(parse_num)
                 .filter(|x| set[*x as usize])
                 .count();
 
@@ -40,12 +41,12 @@ pub fn part2(input: &str) -> Output {
             let mut set = [false; 256];
             winning
                 .split_ascii_whitespace()
-                .filter_map(|x| x.parse::<u8>().ok())
+                .map(parse_num)
                 .for_each(|x| set[x as usize] = true);
 
             let winnings = have
                 .split_ascii_whitespace()
-                .filter_map(|x| x.parse::<u8>().ok())
+                .map(parse_num)
                 .filter(|x| set[*x as usize])
                 .count();
 
