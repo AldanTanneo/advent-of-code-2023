@@ -3,21 +3,6 @@ use std::env::args;
 use advent_of_code_2023::*;
 
 fn main() {
-    /* std::panic::set_hook(Box::new(|p| {
-        eprintln!(
-            "\x1b[1;33mError{}:\x1b[0m\n{}",
-            if let Some(loc) = p.location() {
-                format!("\x1b[0;1m at {loc}\x1b[33m")
-            } else {
-                String::new()
-            },
-            p.to_string()
-                .split_once('\n')
-                .unwrap_or(("", "the program panicked"))
-                .1
-        )
-    })); */
-
     let day = args()
         .nth(1)
         .and_then(|s| s.parse::<usize>().ok())
