@@ -1,4 +1,4 @@
-use std::fmt::Display;
+#![feature(portable_simd)]
 
 macro_rules! days {
     ($($day:literal),*) => {
@@ -12,9 +12,14 @@ macro_rules! days {
     };
 }
 
-days!(01, 02, 03, 04, 05, 06);
+days!(01, 02, 03, 04, 05, 06, 07, 08);
 
 pub mod utils;
+
+pub type Output = u64;
+
+/*
+use std::fmt::Display;
 
 pub struct Output(Box<dyn Display>);
 
@@ -32,3 +37,4 @@ where
         Self(Box::new(value.to_owned()))
     }
 }
+*/
