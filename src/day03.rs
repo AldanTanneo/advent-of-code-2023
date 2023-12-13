@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use rustc_hash::FxHashMap as HashMap;
 
 use crate::Output;
 
@@ -78,7 +78,7 @@ pub fn part2(input: &str) -> Output {
     let mut current: u32 = 0;
     let mut len = 0;
     let mut symbols = Vec::new();
-    let mut gears = HashMap::<_, Vec<_>>::new();
+    let mut gears = HashMap::<_, Vec<_>>::default();
     for i in 0..grid.len() {
         for j in 0..grid[i].len() {
             if grid[i][j].is_ascii_digit() {
