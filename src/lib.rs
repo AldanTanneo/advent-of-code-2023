@@ -1,4 +1,7 @@
 #![feature(portable_simd)]
+#![feature(array_chunks)]
+#![feature(array_windows)]
+#![feature(impl_trait_in_assoc_type)]
 
 macro_rules! days {
     ($($day:literal),*) => {
@@ -12,29 +15,8 @@ macro_rules! days {
     };
 }
 
-days!(01, 02, 03, 04, 05, 06, 07, 08);
+days!(01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13);
 
 pub mod utils;
 
 pub type Output = u64;
-
-/*
-use std::fmt::Display;
-
-pub struct Output(Box<dyn Display>);
-
-impl Display for Output {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.0.fmt(f)
-    }
-}
-
-impl<T: ToOwned> From<T> for Output
-where
-    T::Owned: Display + 'static,
-{
-    fn from(value: T) -> Self {
-        Self(Box::new(value.to_owned()))
-    }
-}
-*/
