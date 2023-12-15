@@ -10,7 +10,7 @@ pub fn part1(input: &str) -> Output {
     let grid = input
         .as_bytes()
         .split(|&b| b == b'\n')
-        .filter(|l| l.len() != 0)
+        .filter(|l| !l.is_empty())
         .collect::<Vec<_>>();
 
     let mut sum: u32 = 0;
@@ -37,22 +37,20 @@ pub fn part1(input: &str) -> Output {
                     adjacent |= is_symbol(grid[i + 1][j]);
                 }
                 len += 1;
-            } else {
-                if len != 0 {
-                    adjacent |= is_symbol(grid[i][j]);
-                    if i != 0 {
-                        adjacent |= is_symbol(grid[i - 1][j]);
-                    }
-                    if i != grid.len() - 1 {
-                        adjacent |= is_symbol(grid[i + 1][j]);
-                    }
-                    if adjacent {
-                        sum += current;
-                    }
-                    current = 0;
-                    len = 0;
-                    adjacent = false;
+            } else if len != 0 {
+                adjacent |= is_symbol(grid[i][j]);
+                if i != 0 {
+                    adjacent |= is_symbol(grid[i - 1][j]);
                 }
+                if i != grid.len() - 1 {
+                    adjacent |= is_symbol(grid[i + 1][j]);
+                }
+                if adjacent {
+                    sum += current;
+                }
+                current = 0;
+                len = 0;
+                adjacent = false;
             }
         }
         if len != 0 {
@@ -72,7 +70,7 @@ pub fn part2(input: &str) -> Output {
     let grid = input
         .as_bytes()
         .split(|&b| b == b'\n')
-        .filter(|l| l.len() != 0)
+        .filter(|l| !l.is_empty())
         .collect::<Vec<_>>();
 
     let mut current: u32 = 0;
@@ -101,24 +99,22 @@ pub fn part2(input: &str) -> Output {
                     symbols.push((i + 1, j));
                 }
                 len += 1;
-            } else {
-                if len != 0 {
-                    if grid[i][j] == b'*' {
-                        symbols.push((i, j));
-                    }
-                    if i != 0 && grid[i - 1][j] == b'*' {
-                        symbols.push((i - 1, j));
-                    }
-                    if i != grid.len() - 1 && grid[i + 1][j] == b'*' {
-                        symbols.push((i + 1, j));
-                    }
-                    for coords in symbols {
-                        gears.entry(coords).or_default().push(current);
-                    }
-                    symbols = vec![];
-                    current = 0;
-                    len = 0;
+            } else if len != 0 {
+                if grid[i][j] == b'*' {
+                    symbols.push((i, j));
                 }
+                if i != 0 && grid[i - 1][j] == b'*' {
+                    symbols.push((i - 1, j));
+                }
+                if i != grid.len() - 1 && grid[i + 1][j] == b'*' {
+                    symbols.push((i + 1, j));
+                }
+                for coords in symbols {
+                    gears.entry(coords).or_default().push(current);
+                }
+                symbols = vec![];
+                current = 0;
+                len = 0;
             }
         }
         if len != 0 {
@@ -133,7 +129,8 @@ pub fn part2(input: &str) -> Output {
 
     gears
         .values()
-        .filter_map(|v| (v.len() == 2).then(|| v[0] * v[1]))
+        .filter(|v| v.len() == 2)
+        .map(|v| v[0] * v[1])
         .sum::<u32>()
         .into()
 }

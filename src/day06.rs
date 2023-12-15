@@ -39,7 +39,7 @@ pub fn part1(input: &str) -> Output {
 pub fn part2(input: &str) -> Output {
     let mut t: u64 = 0;
     let mut it = input.bytes().skip(10);
-    while let Some(b) = it.next() {
+    for b in it.by_ref() {
         if b == b'\n' {
             break;
         }
@@ -48,8 +48,7 @@ pub fn part2(input: &str) -> Output {
         }
     }
     let mut d: u64 = 0;
-    let mut it = it.skip(10);
-    while let Some(b) = it.next() {
+    for b in it.skip(10) {
         if b == b'\n' {
             break;
         }

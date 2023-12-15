@@ -104,7 +104,7 @@ pub fn part1(input: &str) -> Output {
     bearing_after_north_tilt(&grid) as _
 }
 
-const CYCLES: usize = 1000_000_000;
+const CYCLES: usize = 1_000_000_000;
 
 pub fn part2(input: &str) -> Output {
     let mut grid = VecGrid::new(input.as_bytes().to_vec());

@@ -54,13 +54,13 @@ impl<'a> Bucket<'a> {
     }
 }
 
-impl<'a, 'b> Iterator for &'b Bucket<'a> {
-    type Item = (&'a [u8], &'b u8);
+impl<'a> Iterator for &'_ Bucket<'a> {
+    type Item = (&'a [u8], u8);
 
     fn next(&mut self) -> Option<Self::Item> {
         let node = self.0.as_deref()?;
         *self = &node.next;
-        Some((node.label, &node.data))
+        Some((node.label, node.data))
     }
 }
 
@@ -138,7 +138,7 @@ pub fn part2(input: &str) -> Output {
             (box_num + 1)
                 * bucket
                     .enumerate()
-                    .map(|(slot, (_, focal))| (count - slot) * *focal as usize)
+                    .map(|(slot, (_, focal))| (count - slot) * focal as usize)
                     .sum::<usize>()
         })
         .sum::<usize>() as _

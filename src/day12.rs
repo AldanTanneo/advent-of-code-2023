@@ -3,10 +3,10 @@ use rustc_hash::FxHashMap;
 
 use crate::{utils, Output};
 
-fn parser_repeat<'a>(
-    input: &'a str,
+fn parser_repeat(
+    input: &'_ str,
     n: usize,
-) -> impl ParallelIterator<Item = (Vec<u8>, Vec<usize>)> + 'a {
+) -> impl ParallelIterator<Item = (Vec<u8>, Vec<usize>)> + '_ {
     input.par_lines().map(move |l| {
         let (data, idx) = l.split_once(' ').unwrap();
         let idx = idx

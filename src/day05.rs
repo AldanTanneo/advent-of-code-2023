@@ -55,7 +55,7 @@ fn parse_mappings(data: &str) -> (Vec<u64>, Vec<Mapping>) {
     let seeds = seeds.split_ascii_whitespace().map(parse_num).collect();
 
     let mut mappings = vec![];
-    while rest.len() != 0 {
+    while !rest.is_empty() {
         let (_, mut map) = rest.split_once(":\n").unwrap();
         (map, rest) = map.split_once("\n\n").unwrap_or((map, ""));
 
@@ -87,7 +87,6 @@ pub fn part1(input: &str) -> Output {
         .into_iter()
         .min()
         .unwrap()
-        .into()
 }
 
 pub fn part2(input: &str) -> Output {
@@ -101,12 +100,7 @@ pub fn part2(input: &str) -> Output {
         .into_iter()
         .fold(seeds, |seeds, map| map.map_intervals(seeds));
 
-    locations
-        .iter()
-        .min_by_key(|(start, _)| start)
-        .unwrap()
-        .0
-        .into()
+    locations.iter().min_by_key(|(start, _)| start).unwrap().0
 }
 
 #[cfg(test)]
