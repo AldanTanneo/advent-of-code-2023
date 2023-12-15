@@ -17,6 +17,7 @@ lto = true
 rustflags = ["-C", "target-cpu=native"]
 
 [dependencies]
+indicatif = { version = "0.17.7", features = ["rayon"] }
 itertools = "0.12.0"
 nom = "7.1"
 num = "0.4.1"
