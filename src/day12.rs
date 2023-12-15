@@ -1,9 +1,13 @@
+use rayon::{prelude::ParallelIterator, str::ParallelString};
 use rustc_hash::FxHashMap;
 
 use crate::{utils, Output};
 
-fn parser_repeat<'a>(input: &'a str, n: usize) -> impl Iterator<Item = (Vec<u8>, Vec<usize>)> + 'a {
-    input.lines().map(move |l| {
+fn parser_repeat<'a>(
+    input: &'a str,
+    n: usize,
+) -> impl ParallelIterator<Item = (Vec<u8>, Vec<usize>)> + 'a {
+    input.par_lines().map(move |l| {
         let (data, idx) = l.split_once(' ').unwrap();
         let idx = idx
             .split(',')
@@ -65,20 +69,19 @@ fn descent(
 }
 
 pub fn part1(input: &str) -> Output {
-    let mut cache = FxHashMap::default();
     parser_repeat(input, 1)
         .map(|(line, idx)| {
-            cache.clear();
+            let mut cache = FxHashMap::default();
             descent(&line, 0, &idx, 0, &mut cache)
         })
         .sum::<usize>() as _
 }
 
 pub fn part2(input: &str) -> Output {
-    let mut cache = FxHashMap::default();
+    // let mut cache = FxHashMap::default();
     parser_repeat(input, 5)
         .map(|(line, idx)| {
-            cache.clear();
+            let mut cache = FxHashMap::default();
             descent(&line, 0, &idx, 0, &mut cache)
         })
         .sum::<usize>() as _
