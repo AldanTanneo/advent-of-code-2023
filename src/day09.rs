@@ -25,8 +25,8 @@ pub fn part2(input: &str) -> Output {
         .lines()
         .map(|line| {
             line.split_ascii_whitespace()
-                .map(|x| x.parse::<i64>().unwrap())
                 .rev()
+                .map(|x| x.parse::<i64>().unwrap())
                 .zip(PASCAL)
                 .fold((0, 1), |(res, mul), (num, coeff)| {
                     (res + mul * coeff * num, -mul)
